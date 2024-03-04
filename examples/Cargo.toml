@@ -138,6 +138,10 @@ name = "pod_attach"
 path = "pod_attach.rs"
 
 [[example]]
+name = "pod_binary"
+path = "pod_binary.rs"
+
+[[example]]
 name = "pod_exec"
 path = "pod_exec.rs"
 
