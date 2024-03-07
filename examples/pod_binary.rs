@@ -22,7 +22,7 @@ async fn main() -> anyhow::Result<()> {
         "spec": {
             "containers": [{
                 "name": "example",
-                "image": "alpine",
+                "image": "ubuntu:20.04",
                 // Do nothing
                 "command": ["tail", "-f", "/dev/null"],
             }],
@@ -31,7 +31,7 @@ async fn main() -> anyhow::Result<()> {
 
     let pods: Api<Pod> = Api::default_namespaced(client);
     // Stop on error including a pod already exists or still being deleted.
-    // pods.create(&PostParams::default(), &p).await?;
+    pods.create(&PostParams::default(), &p).await?;
 
     // Wait until the pod is running, otherwise we get 500 error.
     let wp = WatchParams::default().fields("metadata.name=example").timeout(10);
@@ -52,8 +52,8 @@ async fn main() -> anyhow::Result<()> {
         }
     }
 
-    let data = std::fs::read("./hello_world").unwrap();
-    let metadata = std::fs::metadata("./hello_world")?;  // importantly, this file has executable permissions
+    let data = std::fs::read("./hello_world_aarch64").unwrap();
+    let metadata = std::fs::metadata("./hello_world_aarch64")?;  // importantly, this file has executable permissions
     info!("Metadata: {:?}", metadata);
 
     let file_name = "rust_binary";
